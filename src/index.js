@@ -1,17 +1,59 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDom from 'react-dom';
+
+// CSS
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Get books object. When importing a named module, you need to use the EXACT same name.
+import { books } from './books'; // Don't need extension for JS files...
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Import Book. When importing a default module, you can use any
+// name to reference it. For example, you could refer to Book 
+// below as anything you wanted to...provided that you also use
+// that name in the code following the import too!
+import Book from './Book';
+
+
+// Stateless functional component
+// Always (must) return JSX
+/*
+
+   JSX Rules:
+
+    - Return (only) a single element;
+    - div / section / article or fragment;
+    - use camelCase for html attribute
+    - className instead of class;
+    - close every element;
+    - formatting.
+
+*/
+
+
+// Function name (the 'component') needs to have upper case first 
+// letter for React...in this context.
+function BookList () {
+
+  // return (
+  //   <section className="booklist">
+  //     { books.map((theBook) => {
+  //         return <Book key={theBook.id} book={theBook}></Book>
+  //       })
+  //     }
+  //   </section>
+  // );
+
+  // Using the 'spread' (...) operator below.
+  return (
+    <section className="booklist">
+      { books.map((theBook) => {
+          return <Book key={theBook.id} {...theBook}></Book>
+        })
+      }
+    </section>
+  );
+
+}
+
+
+ReactDom.render(<BookList />, document.getElementById('root'));
